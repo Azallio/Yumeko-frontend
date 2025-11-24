@@ -1,0 +1,1 @@
+export type { TVideo } from "./video/video.type";

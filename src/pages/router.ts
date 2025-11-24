@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router";
-import { LibraryRoute } from "./library";
+import { CategoryRoute } from "./category";
+import { HomeRoute } from "./home";
 
-export const router = createBrowserRouter([LibraryRoute]);
+export const router = createBrowserRouter([HomeRoute, CategoryRoute]);

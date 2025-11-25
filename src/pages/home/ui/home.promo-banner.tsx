@@ -17,8 +17,9 @@ const test: TVideo[] = [
 	{
 		id: "id2",
 		type: "anime",
-		description: "Вторая часть истории о героях виртуальной реальности.",
-		title: "Мастера меча онлайн 2",
+		description:
+			"Появление проходов в подземельях с монстрами давно терроризирует человечество. Никто не знает, где и когда возникнут новые врата и чудища ринутся наверх. Даже армия не может справиться с нашествием монстров. Людям доступна лишь одна стратегия: засылка в только что открывшееся подземелье отряда особых охотников. Если они быстро уничтожат монстра, проход закроется, а угроза вторжения временно исчезнет.Но даже среди элитных охотников есть неудачники, не способные победить среднеуровневых монстров. Смелый, но физически слабый Сон Джину выполняет задачу зачистки самых мелких монстров. Нерасторопный Сон проигрывает конкуренцию соратникам, не может нормально прокачивать свой уровень, практически ничего не зарабатывает. А деньги очень нужны: его мать лежит в коме.Однажды он натыкается на секретное ответвление и попадает в не зачищенное охотниками подземелье. Парень приходит в себя на больничной койке. Когда шок от воскрешения прошел, Сон обнаружил способность вызова интерфейса для путешествия по альтернативному миру. Здесь он сильнее, быстрее, удачливей. Ему нужно прокачаться одиночку и наконец-то заполучить высший ранг авантюриста.",
+		title: "Поднятие уровня в одиночку",
 		genres: ["Фантастика", "Приключения"],
 		posterUrl: "/assets/test-sao-bg.jpg",
 		bannerUrl: "/assets/test-sao.png",
@@ -82,24 +83,36 @@ export function HomePromoBanner() {
 				>
 					<div className='flex flex-col justify-between h-152 w-1/2'>
 						<div className='flex flex-col gap-8'>
-							<h1 className='font-raleway text-7xl font-black'>
+							<h1 className='font-raleway text-7xl font-black whitespace-nowrap'>
 								{current.title}
 							</h1>
 
 							<span className='text-5xl'>{current.genres.join(" | ")}</span>
 
-							<p className='text-3xl'>{current.description}</p>
+							<p className='text-3xl line-clamp-7'>{current.description}</p>
 						</div>
 
-						<Link
-							to='/'
-							className='
-                bg-red-500 text-center text-2xl p-5 rounded-full 
-                hover:shadow-2xl transition
-              '
-						>
-							Смотреть
-						</Link>
+						<div className='flex gap-5'>
+							<Link
+								to='/'
+								className='
+															bg-red-500 text-center text-2xl p-5 rounded-full 
+															hover:shadow-2xl transition
+														'
+							>
+								Смотреть
+							</Link>
+							<Link
+								to={"/"}
+								className='	bg-gray-1050 text-center text-2xl p-5 rounded-full 
+															hover:shadow-2xl transition'
+							>
+								О аниме
+							</Link>
+							<button type='button' className={clsx("")}>
+								<img src="assets/favotit.svg" alt="" />
+							</button>
+						</div>
 					</div>
 
 					<img

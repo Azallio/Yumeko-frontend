@@ -21,14 +21,20 @@ const test: TVideo[] = [
 			"Появление проходов в подземельях с монстрами давно терроризирует человечество. Никто не знает, где и когда возникнут новые врата и чудища ринутся наверх. Даже армия не может справиться с нашествием монстров. Людям доступна лишь одна стратегия: засылка в только что открывшееся подземелье отряда особых охотников. Если они быстро уничтожат монстра, проход закроется, а угроза вторжения временно исчезнет.Но даже среди элитных охотников есть неудачники, не способные победить среднеуровневых монстров. Смелый, но физически слабый Сон Джину выполняет задачу зачистки самых мелких монстров. Нерасторопный Сон проигрывает конкуренцию соратникам, не может нормально прокачивать свой уровень, практически ничего не зарабатывает. А деньги очень нужны: его мать лежит в коме.Однажды он натыкается на секретное ответвление и попадает в не зачищенное охотниками подземелье. Парень приходит в себя на больничной койке. Когда шок от воскрешения прошел, Сон обнаружил способность вызова интерфейса для путешествия по альтернативному миру. Здесь он сильнее, быстрее, удачливей. Ему нужно прокачаться одиночку и наконец-то заполучить высший ранг авантюриста.",
 		title: "Поднятие уровня в одиночку",
 		genres: ["Фантастика", "Приключения"],
-		posterUrl: "/assets/test-sao-bg.jpg",
-		bannerUrl: "/assets/test-sao.png",
+		posterUrl: "/assets/test-solo.png",
+		bannerUrl: "",
 	},
 ];
 
 export function HomePromoBanner() {
 	const [index, setIndex] = useState(0);
 	const [fade, setFade] = useState(true);
+
+	const [isActive, setIsActive] = useState(false);
+
+	const switchFavoriteButton = () => {
+		setIsActive(prev => !prev);
+	};
 
 	const nextSlide = () => {
 		setIndex(prev => (prev + 1) % test.length);
@@ -102,6 +108,16 @@ export function HomePromoBanner() {
 							>
 								Смотреть
 							</Link>
+							<button
+								onClick={switchFavoriteButton}
+								className={clsx(
+									"text-2xl p-5 rounded-full transition",
+									isActive ? "bg-gray-1050" : "bg-red-500",
+									"hover:shadow-2xl"
+								)}
+							>
+								{isActive ? "В избранном" : "Добавить в избранное"}
+							</button>
 							<Link
 								to={"/"}
 								className='	bg-gray-1050 text-center text-2xl p-5 rounded-full 
@@ -109,16 +125,13 @@ export function HomePromoBanner() {
 							>
 								О аниме
 							</Link>
-							<button type='button' className={clsx("")}>
-								<img src="assets/favotit.svg" alt="" />
-							</button>
+							
 						</div>
 					</div>
 
 					<img
 						src={current.bannerUrl}
 						className='w-auto h-140 relative top-27 left-15'
-						alt={current.title}
 					/>
 				</div>
 

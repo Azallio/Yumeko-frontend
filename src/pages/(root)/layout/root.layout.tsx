@@ -1,10 +1,10 @@
 import { Link, NavLink } from "react-router";
 
-const homePageNavLinks = [
-	{ href: "/anime", label: "Anime" },
-	{ href: "/films", label: "Films" },
-	{ href: "/serials", label: "Serials" },
-	{ href: "/guids", label: "Guids" },
+export const homePageNavLinks = [
+	{ href: "/anime", label: "Аниме" },
+	{ href: "/films", label: "Фильмы" },
+	{ href: "/serials", label: "Сериалы" },
+	{ href: "/guids", label: "Гайды" },
 ];
 
 export function RootLayout(props: React.PropsWithChildren) {
@@ -33,7 +33,7 @@ export function RootLayout(props: React.PropsWithChildren) {
 								to={href}
 								className={({ isActive }) =>
 									isActive
-										? "text-white text-xl/7.5"
+										? "text-white text-xl/7.5 font-medium"
 										: "text-gray-420 text-xl/7.5"
 								}
 							>
@@ -44,7 +44,7 @@ export function RootLayout(props: React.PropsWithChildren) {
 				</div>
 				<input
 					className='outline-none ml-15 flex py-3 px-6 rounded-4xl bg-gray-750 w-full'
-					placeholder='Name of title'
+					placeholder='Ведите название'
 					type='text'
 				/>
 				<Link to='/profile' className='size-max shrink-0 ml-15'>

@@ -1,1 +1,1 @@
-// export {} from './'
+export {HomePromoBanner} from './home.promo-banner'

@@ -1,6 +1,6 @@
-import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router";
+import { FavoriteSvg, NextSvg } from "../../(root)";
 import type { TVideo } from "../../../shared/types";
 
 const test: TVideo[] = [
@@ -27,8 +27,15 @@ const test: TVideo[] = [
 ];
 
 export function HomePromoBanner() {
-	const [index, setIndex] = useState(0);
-	const [fade, setFade] = useState(true);
+	const [isCurrent, setIsCurrent] = useState(0);
+
+	const nextSlide = () => {
+		setIsCurrent(prev => (prev + 1) % test.length);
+	};
+
+	const prevSlide = () => {
+		setIsCurrent(prev => (prev - 1 + test.length) % test.length);
+	};
 
 	const [isActive, setIsActive] = useState(false);
 
@@ -36,114 +43,98 @@ export function HomePromoBanner() {
 		setIsActive(prev => !prev);
 	};
 
-	const nextSlide = () => {
-		setIndex(prev => (prev + 1) % test.length);
-	};
-
-	const prevSlide = () => {
-		setIndex(prev => (prev - 1 + test.length) % test.length);
-	};
-
-	useEffect(() => {}, []);
-
-	useEffect(() => {
-		setFade(false);
-		const timeout = setTimeout(() => setFade(true), 50);
-		return () => clearTimeout(timeout);
-	}, [index]);
-
-	const current = test[index];
+	const current = test;
 
 	return (
-		<section className='px-15 py-10 w-full overflow-hidden'>
-			<div className='relative w-full h-auto'>
-				<button
-					onClick={prevSlide}
-					className='
-            absolute left-4 top-1/2 -translate-y-1/2 z-10
-            text-white/20 text-6xl p-3 rounded-full
-            hover:text-white transition
-          '
-				>
-					‹
-				</button>
-
-				<button
-					onClick={nextSlide}
-					className='
-            absolute right-4 top-1/2 -translate-y-1/2 z-10
-            text-white/20 text-6xl p-3 rounded-full
-            hover:text-white transition
-          '
-				>
-					›
-				</button>
-
+		<section className='px-15 py-10 w-full'>
+			<div className='relative w-full mx-auto overflow-hidden rounded-2xl'>
 				<div
-					key={index}
-					className={clsx(
-						"flex flex-row justify-between w-full rounded-2xl bg-no-repeat bg-cover bg-center p-15 transition-opacity duration-700",
-						fade ? "opacity-100" : "opacity-0"
-					)}
-					style={{ backgroundImage: `url(${current.posterUrl})` }}
+					className='flex transition-transform duration-500 relative'
+					style={{ transform: `translateX(-${isCurrent * 100}%)` }}
 				>
-					<div className='flex flex-col justify-between h-152 w-1/2'>
-						<div className='flex flex-col gap-8'>
-							<h1 className='font-raleway text-7xl font-black whitespace-nowrap'>
-								{current.title}
-							</h1>
+					{current.map(slide => (
+						<div
+							className='flex flex-row justify-between w-full rounded-2xl bg-no-repeat bg-cover bg-center py-15 px-20 shrink-0 select-none'
+							style={{ backgroundImage: `url(${slide.posterUrl})` }}
+						>
+							<div className='flex flex-col justify-between h-152 w-1/2'>
+								<div className='flex flex-col gap-8'>
+									<h1 className='font-raleway text-7xl font-black'>
+										{slide.title}
+									</h1>
 
-							<span className='text-5xl'>{current.genres.join(" | ")}</span>
+									<span className='text-5xl'>{slide.genres.join(" | ")}</span>
 
-							<p className='text-3xl line-clamp-7'>{current.description}</p>
+									<p className='text-3xl line-clamp-6'>{slide.description}</p>
+								</div>
+							</div>
+
+							<img
+								src={slide.bannerUrl}
+								className='w-auto h-140 relative top-27 left-15'
+								alt={slide.title}
+							/>
 						</div>
+					))}
+				</div>
+				<div className='z-40 absolute left-15 bottom-10 flex items-center gap-5'>
+					<Link
+						to='/'
+						className='
+                bg-red-500 text-center text-2xl p-5 px-20 rounded-full 
+                hover:shadow-2xl '
+					>
+						Смотреть
+					</Link>
 
-						<div className='flex gap-5'>
-							<Link
-								to='/'
-								className='
-															bg-red-500 text-center text-2xl p-5 rounded-full 
-															hover:shadow-2xl transition
-														'
-							>
-								Смотреть
-							</Link>
-							<button
-								onClick={switchFavoriteButton}
-								className={clsx(
-									"text-2xl p-5 rounded-full transition",
-									isActive ? "bg-gray-1050" : "bg-red-500",
-									"hover:shadow-2xl"
-								)}
-							>
-								{isActive ? "В избранном" : "Добавить в избранное"}
-							</button>
-							<Link
-								to={"/"}
-								className='	bg-gray-1050 text-center text-2xl p-5 rounded-full 
-															hover:shadow-2xl transition'
-							>
-								О аниме
-							</Link>
-							
-						</div>
-					</div>
+					<Link
+						to='#'
+						className='
+              bg-gray-1050 text-center text-2xl p-5 px-10 rounded-full 
+                hover:shadow-2xl '
+					>
+						O аниме
+					</Link>
 
-					<img
-						src={current.bannerUrl}
-						className='w-auto h-140 relative top-27 left-15'
+					<FavoriteSvg 
+						onClick={switchFavoriteButton}
+						fill={!isActive ? "white" : "red"}
+						stroke={!isActive ? "" : "red"}
+						className='size-18'
 					/>
 				</div>
 
-				<div className='flex gap-3 absolute bottom-4 left-1/2 -translate-x-1/2'>
-					{test.map((_, i) => (
+				{/* Кнопка назад */}
+				<button
+					onClick={prevSlide}
+					className='absolute top-1/2 -translate-y-1/2 text-white/10 hover:text-white p-4 h-full transition'
+				>
+					<NextSvg
+						color='#D7D7D7'
+						className='rotate-180 size-10 hover:scale-110 transition'
+					/>
+				</button>
+
+				{/* Кнопка вперёд */}
+				<button
+					onClick={nextSlide}
+					className='absolute top-1/2 right-0 -translate-y-1/2 text-white/10 hover:text-white p-4  h-full transition'
+				>
+					<NextSvg
+						color='#D7D7D7'
+						className='hover:scale-110 transition size-10'
+					/>
+				</button>
+
+				{/* Индикаторы */}
+				<div className='absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2'>
+					{current.map((_, i) => (
 						<button
 							key={i}
-							onClick={() => setIndex(i)}
-							className={`
-                w-4 h-4 rounded-full transition
-                ${i === index ? "bg-white" : "bg-white/40"}
-              `}
+							onClick={() => setIsCurrent(i)}
+							className={`w-3 h-3 rounded-full transition ${
+								isCurrent === i ? "bg-white" : "bg-white/50"
+							}`}
 						/>
 					))}
 				</div>

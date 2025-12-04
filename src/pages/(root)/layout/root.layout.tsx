@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router";
 
-export const homePageNavLinks = [
+const homePageNavLinks = [
 	{ href: "/anime", label: "Аниме" },
 	{ href: "/films", label: "Фильмы" },
 	{ href: "/serials", label: "Сериалы" },

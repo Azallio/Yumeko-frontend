@@ -1,6 +1,6 @@
 import { NavLink } from "react-router";
 import { RootLayout } from "../(root)";
-import { HomePromoBanner } from "./ui/home.promo-banner";
+import { HomePromoBanner } from './ui'
 
 const exampleTitleArray = [
 	{
@@ -38,8 +38,8 @@ export function Home() {
 	return (
 		<RootLayout>
 			<section>
-				<article>
-					<HomePromoBanner />
+				<article className='px-15 mt-10'>
+					<HomePromoBanner/>
 				</article>
 				{exampleTitleArray.map(({ category, exampleArray, href }, index) => (
 					<article

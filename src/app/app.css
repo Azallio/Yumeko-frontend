@@ -9,3 +9,33 @@ html {
     font-size: 5vw;
   }
 }
+
+@theme {
+  --animate-gradient-move-down: gradient-move-down 3s ease-in-out forwards;
+  --animate-gradient-move-up: gradient-move-up 3s ease-in-out forwards;
+}
+
+@utility flex-center {
+  @apply flex items-center justify-center;
+}
+@utility bg-length-* {
+  background-size: calc(100% * --value(number)) calc(100% * --value(number));
+}
+
+@keyframes gradient-move-up {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes gradient-move-down {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

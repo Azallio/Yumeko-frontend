@@ -1,11 +1,12 @@
-import { SharedUi } from '@shared'
+import { CardUi } from '@widgets/card'
+import { LayoutUi } from '@widgets/layout'
 
 export default function IndexRoute() {
   return (
-    <div className="flex h-dvh flex-col items-center justify-center p-4">
-      <SharedUi.Icon name="favicon" className="mb-4 size-20" />
-      <h1>Welcome to the Index Route</h1>
-      <p>This is the main landing page of the application.</p>
-    </div>
+    <LayoutUi.Layout className="flex-center">
+      <section>
+        <CardUi.Card className="bg-length-2 hover:animate-gradient-move-up animate-gradient-move-down rotate-y-22 rotate-z-12 rounded-2xl bg-gradient-to-br from-transparent to-indigo-800 p-5 transition-all duration-800 hover:rotate-y-0 hover:rotate-z-0" />
+      </section>
+    </LayoutUi.Layout>
   )
 }
